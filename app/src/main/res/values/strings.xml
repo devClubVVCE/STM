@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Student Task Manager</string>
+
+    <string name="empty_list_image">No tasks image</string>
+    <string name="add_task_button">Add task button</string>
+
+    <string name="get_started">You don\'t have any tasks now</string>
+    <string name="add_first_task">Get started</string>
+    <string name="add_tasks">New</string>
 </resources>
