@@ -19,9 +19,14 @@ val ibmPlexSans = FontFamily(
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = ibmPlexSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 22.sp
+    ),
+    body2 = TextStyle(
+        fontFamily = ibmPlexSans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
     )
     /* Other default text styles to override
     button = TextStyle(

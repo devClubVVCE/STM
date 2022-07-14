@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
 import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition.
@@ -20,10 +22,13 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navController = rememberNavController()
-            
+
             StudentTaskManagerTheme {
-                NavHost(navController = navController, startDestination = Screen.TasksScreen.route ){
-                    composable(Screen.TasksScreen.route){
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.TasksScreen.route
+                ) {
+                    composable(Screen.TasksScreen.route) {
                         TasksScreen(navController)
                     }
                 }
