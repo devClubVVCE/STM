@@ -5,11 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.components.EmptyListView
 import com.vvcedevelopersclub.studenttaskmanager.ui.viewmodels.TasksViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun TasksScreen(
     navController: NavController,
-    viewModel: TasksViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: TasksViewModel = viewModel()
 ) = if (viewModel.tasks.value.isEmpty()) {
     EmptyListView()
 } else {
