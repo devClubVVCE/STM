@@ -15,4 +15,14 @@ object Utils {
             isTaskCompleted = this.isTaskCompleted,
         )
     }
+
+    fun DMTask.toTask():Task{
+        return Task(
+            this.taskName,
+            this.taskDescription,
+            this.taskTime,
+            this.taskDate,
+            this.isTaskCompleted
+        )
+    }
 }
