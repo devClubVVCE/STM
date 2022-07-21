@@ -6,7 +6,7 @@ data class DMTask(
     val taskName: String,
     val taskDescription: String,
     val taskTime: Long,
-    val taskDate: Date,
+    val taskDate: String,
     val taskId: Long = 0L,
     val isTaskCompleted: Boolean
 )

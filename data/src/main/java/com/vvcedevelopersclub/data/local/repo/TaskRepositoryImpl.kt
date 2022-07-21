@@ -9,6 +9,7 @@ import com.vvcedevelopersclub.domain.repo.TasksRepository
 import com.vvcedevelopersclub.domain.utils.Resource
 import com.vvcedevelopersclub.domain.utils.networkBoundResource
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -16,7 +17,6 @@ class TaskRepositoryImpl @Inject constructor(
     private val coroutineContext: CoroutineContext,
     private val taskManagerDatabase: TaskManagerDatabase
 ) : TasksRepository {
-
 
     override fun fetchAllTasks(): Flow<Resource<List<DMTask>>> {
         return networkBoundResource(
@@ -30,7 +30,24 @@ class TaskRepositoryImpl @Inject constructor(
             fetch = {
                 // Retrofit query
             },
-            saveFetchResult = { response ->
+            saveFetchResult = { _ ->
+                // Save result to DB
+            },
+            shouldFetch = {
+                true
+            }
+        )
+    }
+
+    override fun fetchTaskDates(): Flow<Resource<List<String>>> {
+        return networkBoundResource(
+            query = {
+                taskManagerDatabase.taskDao().fetchTaskDates()
+            },
+            fetch = {
+                // Retrofit query
+            },
+            saveFetchResult = { _ ->
                 // Save result to DB
             },
             shouldFetch = {

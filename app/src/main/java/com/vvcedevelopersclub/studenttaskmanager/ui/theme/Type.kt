@@ -1,6 +1,7 @@
 package com.vvcedevelopersclub.studenttaskmanager.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -21,12 +22,32 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = ibmPlexSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp
+        fontSize = 22.sp,
+        color = Color.Black
     ),
     body2 = TextStyle(
         fontFamily = ibmPlexSans,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 25.sp,
+        color = Color.Black
+    ),
+    h2 = TextStyle(
+        fontFamily = ibmPlexSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 36.sp,
+        color = TitleTextColor
+    ),
+    h4 = TextStyle(
+        fontFamily = ibmPlexSans,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 22.sp,
+        color = Color.Black
+    ),
+    subtitle1 = TextStyle(
+        fontFamily = ibmPlexSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        color = Color.Black
     )
     /* Other default text styles to override
     button = TextStyle(

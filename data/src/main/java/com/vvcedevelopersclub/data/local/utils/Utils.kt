@@ -2,6 +2,8 @@ package com.vvcedevelopersclub.data.local.utils
 
 import com.vvcedevelopersclub.data.local.entities.Task
 import com.vvcedevelopersclub.domain.models.DMTask
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Utils {
 
@@ -16,7 +18,7 @@ object Utils {
         )
     }
 
-    fun DMTask.toTask():Task{
+    fun DMTask.toTask(): Task {
         return Task(
             this.taskName,
             this.taskDescription,
@@ -24,5 +26,23 @@ object Utils {
             this.taskDate,
             this.isTaskCompleted
         )
+    }
+
+    fun getCurrentDate(): String {
+        return SimpleDateFormat("dd/MMM/yyyy", Locale.US).format(Date())
+    }
+
+    fun getPreviousDay(): String {
+        return SimpleDateFormat(
+            "dd/MMM/yyyy",
+            Locale.US
+        ).format(System.currentTimeMillis() - (1000 * 60 * 60 * 24))
+    }
+
+    fun getNextDay(): String {
+        return SimpleDateFormat(
+            "dd/MMM/yyyy",
+            Locale.US
+        ).format(System.currentTimeMillis() + (1000 * 60 * 60 * 24))
     }
 }

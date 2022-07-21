@@ -7,6 +7,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.vvcedevelopersclub.studenttaskmanager.ui.screens.AddEditTasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
 import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
@@ -30,6 +31,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(Screen.TasksScreen.route) {
                         TasksScreen(navController)
+                    }
+                    composable(Screen.AddEditTasksScreen.route) {
+                        AddEditTasksScreen(navController)
                     }
                 }
             }

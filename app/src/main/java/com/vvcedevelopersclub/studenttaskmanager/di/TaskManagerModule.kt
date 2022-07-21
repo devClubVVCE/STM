@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.vvcedevelopersclub.data.local.TaskManagerDatabase
 import com.vvcedevelopersclub.data.local.repo.TaskRepositoryImpl
 import com.vvcedevelopersclub.domain.repo.TasksRepository
+import com.vvcedevelopersclub.domain.usecase.UseCaseAddTask
 import com.vvcedevelopersclub.domain.usecase.UseCaseFetchAllTasks
 import dagger.Module
 import dagger.Provides
@@ -43,4 +44,9 @@ class TaskManagerModule {
     @Singleton
     fun provideUseCaseFetchAllTasks(tasksRepository: TasksRepository) =
         UseCaseFetchAllTasks(tasksRepository)
+
+    @Provides
+    @Singleton
+    fun provideUseCaseAddTask(tasksRepository: TasksRepository) =
+        UseCaseAddTask(tasksRepository)
 }
