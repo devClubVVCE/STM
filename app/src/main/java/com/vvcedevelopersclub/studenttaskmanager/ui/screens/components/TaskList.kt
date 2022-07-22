@@ -24,7 +24,6 @@ import com.vvcedevelopersclub.studenttaskmanager.ui.theme.PrimaryBackground
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.PrimaryButtonBackground
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.SecondaryButtonBackground
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.TaskListItemBackground
-import com.vvcedevelopersclub.studenttaskmanager.ui.utils.ExtensionMethods.toTime
 
 @Composable
 fun TaskList(
@@ -100,7 +99,7 @@ fun TaskListItem(task: DMTask) {
             style = MaterialTheme.typography.body1,
         )
         Text(
-            text = task.taskTime.toTime(),
+            text = task.taskTime,
             style = MaterialTheme.typography.subtitle1
         )
     }
@@ -124,7 +123,7 @@ fun TaskActions(onAddTaskButtonClicked: () -> Unit, onInsightsTaskButtonClicked:
             SecondaryButtonBackground,
             stringResource(id = R.string.insights),
             icon = Icons.Outlined.Visibility,
-            onInsightsTaskButtonClicked
+            onClick = onInsightsTaskButtonClicked
         )
     }
 }

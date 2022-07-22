@@ -8,7 +8,7 @@ import java.util.*
 data class Task(
     val taskName: String,
     val taskDescription: String,
-    val taskTime: Long,
+    val taskTime: String,
     val taskDate: String,
     val isTaskCompleted: Boolean,
     @PrimaryKey(autoGenerate = true)
