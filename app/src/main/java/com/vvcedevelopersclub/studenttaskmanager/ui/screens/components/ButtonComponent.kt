@@ -23,17 +23,31 @@ fun ButtonComponent(
     buttonBackground: Color,
     label: String,
     icon: ImageVector = Icons.Filled.Add,
-    onClick: () -> Unit
+    maxWidth: Boolean = false,
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .width(140.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(buttonBackground)
-            .padding(vertical = 8.dp)
-            .clickable {
-                onClick()
-            },
+        modifier = if (maxWidth) {
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(buttonBackground)
+                .clickable {
+                    onClick()
+                }
+                .padding(vertical = 8.dp)
+
+        } else {
+            Modifier
+                .width(140.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(buttonBackground)
+                .clickable {
+                    onClick()
+                }
+                .padding(vertical = 8.dp)
+
+        },
         horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(icon, contentDescription = label)

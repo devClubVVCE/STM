@@ -12,10 +12,26 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="add_task_title">New Task</string>
+    <string name="add_task_subtitle">Schedule a new task</string>
+    <string name="update_task_title">Update task</string>
+    <string name="update_task_subtitle">Make changes to your task</string>
+    <string name="save_task">Save Task</string>
+    <string name="task_time_label">Time</string>
+    <string name="task_date_label">Date</string>
+    <string name="task_title_label">Title</string>
+    <string name="task_description_label">Description</string>
 
-   <plurals name="tasks_subheading">
-       <item quantity="one">You have %d task scheduled</item>
-       <item quantity="other">You have %d tasks scheduled</item>
-   </plurals>
+    <string name="task_date_placeholder">01/01/2023</string>
+    <string name="task_time_placeholder">5:00 PM</string>
+    <string name="task_title_placeholder">Assignment</string>
+    <string name="task_description_placeholder">Complete assignment</string>
+    <string name="back_button">Back Button</string>
+
+
+    <plurals name="tasks_subheading">
+        <item quantity="one">You have %d task scheduled</item>
+        <item quantity="other">You have %d tasks scheduled</item>
+    </plurals>
 
 </resources>
