@@ -22,7 +22,7 @@ fun TasksScreen(
         CircularProgressIndicatorView()
     } else {
         if (tasksState.tasks.data != null && tasksState.tasks.data?.isEmpty() == true) {
-            EmptyListView(navController) {
+            EmptyListView {
                 navigateToAddEditTaskScreen(navController)
             }
         } else if (
