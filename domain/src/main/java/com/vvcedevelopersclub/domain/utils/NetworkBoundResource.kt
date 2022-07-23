@@ -14,6 +14,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
     val flow = if (shouldFetch(data)) {
         emit(Resource.loading(data))
+        kotlinx.coroutines.delay(1000L)
         try {
             val fetchedResult = fetch()
             saveFetchResult(fetchedResult)

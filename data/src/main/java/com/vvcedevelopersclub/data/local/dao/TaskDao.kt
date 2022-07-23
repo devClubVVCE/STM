@@ -14,12 +14,12 @@ interface TaskDao {
     @Query("SELECT DISTINCT taskDate FROM Task ORDER BY taskDate DESC")
     fun fetchTaskDates(): Flow<List<String>>
 
+    @Query("SELECT * FROM Task WHERE taskId = :id")
+    suspend fun getTaskById(id: Long): Task?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTask(task: Task)
 
     @Delete
     suspend fun deleteTask(task: Task)
-
-    @Update
-    suspend fun updateTask(task: Task)
 }

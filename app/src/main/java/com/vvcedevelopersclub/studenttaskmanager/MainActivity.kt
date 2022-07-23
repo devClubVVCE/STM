@@ -3,7 +3,6 @@ package com.vvcedevelopersclub.studenttaskmanager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,11 +32,18 @@ class MainActivity : ComponentActivity() {
                         TasksScreen(navController)
                     }
                     composable(
-                        Screen.AddEditTasksScreen.route,
-
-                        ) {
+                        Screen.AddEditTasksScreen.route + "?taskId={taskId}",
+                        arguments = listOf(
+                            navArgument(name = "taskId") {
+                                type = NavType.LongType
+                                defaultValue = -1L
+                            }
+                        )
+                    ) {
+                        val taskId = it.arguments?.getLong("taskId") ?: -1
                         AddEditTasksScreen(
-                            navController
+                            navController,
+                            taskId
                         )
                     }
                 }

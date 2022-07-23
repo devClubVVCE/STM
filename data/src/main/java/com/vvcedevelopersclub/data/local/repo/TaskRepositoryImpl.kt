@@ -56,12 +56,13 @@ class TaskRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun fetchTaskById(taskId: Long): DMTask? {
+        return taskManagerDatabase.taskDao().getTaskById(taskId)?.toDMTask()
+    }
+
     override suspend fun addTask(dmTask: DMTask) {
         val task = dmTask.toTask()
         taskManagerDatabase.taskDao().addTask(task)
-    }
-
-    override suspend fun updateTask(dmTask: DMTask) {
     }
 
     override suspend fun deleteTask(dmTask: DMTask) {
