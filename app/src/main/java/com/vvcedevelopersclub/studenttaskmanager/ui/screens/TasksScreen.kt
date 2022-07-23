@@ -22,8 +22,8 @@ fun TasksScreen(
         CircularProgressIndicatorView()
     } else {
         if (tasksState.tasks.data != null && tasksState.tasks.data?.isEmpty() == true) {
-            EmptyListView(navController) {
-                navigateToAddEditTaskScreen(navController)
+            EmptyListView {
+                navController.navigate(Screen.AddEditTasksScreen.route)
             }
         } else if (
             tasksState.tasks.data != null
@@ -31,19 +31,18 @@ fun TasksScreen(
             && taskDatesState.taskDates.data != null
             && taskDatesState.taskDates.data?.isEmpty() != true) {
             TaskList(
-                tasksState.tasks.data!!,
+                tasks = tasksState.tasks.data!!,
                 onAddTaskButtonClicked = {
-                    navigateToAddEditTaskScreen(navController)
+                    navController.navigate(Screen.AddEditTasksScreen.route)
                 },
                 onInsightsTaskButtonClicked = {
-                    navigateToAddEditTaskScreen(navController)
+                    navController.navigate(Screen.AddEditTasksScreen.route)
                 },
-                taskDatesState.taskDates.data!!
+                onTaskItemClicked = { taskId ->
+                    navController.navigate(Screen.AddEditTasksScreen.route+"?taskId=$taskId")
+                },
+                taskDates = taskDatesState.taskDates.data!!
             )
         }
     }
-}
-
-private fun navigateToAddEditTaskScreen(navController: NavController) {
-    navController.navigate(Screen.AddEditTasksScreen.route)
 }

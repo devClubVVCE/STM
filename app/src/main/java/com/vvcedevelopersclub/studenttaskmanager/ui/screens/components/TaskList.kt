@@ -29,6 +29,7 @@ import com.vvcedevelopersclub.studenttaskmanager.ui.theme.TaskListItemBackground
 fun TaskList(
     tasks: List<DMTask>,
     onAddTaskButtonClicked: () -> Unit,
+    onTaskItemClicked: (taskId:Long) -> Unit,
     onInsightsTaskButtonClicked: () -> Unit,
     taskDates: List<String>
 ) {
@@ -69,7 +70,7 @@ fun TaskList(
                 Spacer(modifier = Modifier.height(16.dp))
                 for (task in tasks) {
                     if (task.taskDate == date) {
-                        TaskListItem(task)
+                        TaskListItem(task,onTaskItemClicked)
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
@@ -83,12 +84,12 @@ fun TaskList(
 }
 
 @Composable
-fun TaskListItem(task: DMTask) {
+fun TaskListItem(task: DMTask,onTaskItemClicked: (taskId:Long) -> Unit,) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(10.dp))
         .clickable {
-
+            onTaskItemClicked(task.taskId)
         }
         .background(TaskListItemBackground)
         .padding(vertical = 8.dp, horizontal = 16.dp)

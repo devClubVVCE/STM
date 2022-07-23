@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Student Task Manager</string>
+    <string name="app_name">Taskly</string>
 
     <string name="empty_list_image">No tasks image</string>
     <string name="add_task_button">Add task button</string>

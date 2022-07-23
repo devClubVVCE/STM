@@ -3,10 +3,11 @@ package com.vvcedevelopersclub.studenttaskmanager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.AddEditTasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
@@ -16,9 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Handle the splash screen transition.
-        val splashScreen = installSplashScreen()
-
+        setTheme(R.style.Theme_StudentTaskManager)
         super.onCreate(savedInstanceState)
         setContent {
 
@@ -32,8 +31,20 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.TasksScreen.route) {
                         TasksScreen(navController)
                     }
-                    composable(Screen.AddEditTasksScreen.route) {
-                        AddEditTasksScreen(navController)
+                    composable(
+                        Screen.AddEditTasksScreen.route + "?taskId={taskId}",
+                        arguments = listOf(
+                            navArgument(name = "taskId") {
+                                type = NavType.LongType
+                                defaultValue = -1L
+                            }
+                        )
+                    ) {
+                        val taskId = it.arguments?.getLong("taskId") ?: -1
+                        AddEditTasksScreen(
+                            navController,
+                            taskId
+                        )
                     }
                 }
             }

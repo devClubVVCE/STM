@@ -24,7 +24,8 @@ object Utils {
             this.taskDescription,
             this.taskTime,
             this.taskDate,
-            this.isTaskCompleted
+            this.isTaskCompleted,
+            this.taskId,
         )
     }
 

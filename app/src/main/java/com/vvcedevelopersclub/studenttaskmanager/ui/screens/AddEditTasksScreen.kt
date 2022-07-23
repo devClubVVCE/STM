@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -32,6 +33,9 @@ import com.vvcedevelopersclub.studenttaskmanager.ui.screens.components.ButtonCom
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.Background
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.PrimaryButtonBackground
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.TaskListItemBackground
+import com.vvcedevelopersclub.studenttaskmanager.ui.utils.AddEditTaskEvent
+import com.vvcedevelopersclub.studenttaskmanager.ui.utils.ExtensionMethods.parseDateString
+import com.vvcedevelopersclub.studenttaskmanager.ui.utils.ExtensionMethods.parseTimeString
 import com.vvcedevelopersclub.studenttaskmanager.ui.viewmodels.AddEditTaskViewModel
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
@@ -39,26 +43,11 @@ import java.util.*
 @Composable
 fun AddEditTasksScreen(
     navController: NavController,
+    taskId: Long,
     viewModel: AddEditTaskViewModel = hiltViewModel()
 ) {
-    val date = remember {
-        mutableStateOf("")
-    }
-
-    val time = remember {
-        mutableStateOf("")
-    }
-
-    val title = remember {
-        mutableStateOf("")
-    }
-
-    val description = remember {
-        mutableStateOf("")
-    }
 
     val context = LocalContext.current
-
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
@@ -87,27 +76,33 @@ fun AddEditTasksScreen(
 
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        HeadingSection()
-        TaskFormSection(context, date, time, title, description)
-        SaveTaskButtonSection() {
-            viewModel.addTask(title.value, description.value, time.value, date.value)
+        HeadingSection(taskId)
+        TaskFormSection(context, viewModel)
+        SaveTaskButtonSection {
+            viewModel.onEvent(
+                AddEditTaskEvent.SaveTask
+            )
         }
     }
 }
 
 @Composable
-fun HeadingSection() {
+fun HeadingSection(taskId: Long) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start,
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = stringResource(id = R.string.add_task_title),
+            text = if (taskId == -1L) stringResource(id = R.string.add_task_title) else stringResource(
+                id = R.string.update_task_title
+            ),
             style = MaterialTheme.typography.h2
         )
         Text(
-            text = stringResource(id = R.string.add_task_subtitle),
+            text = if (taskId == -1L) stringResource(id = R.string.add_task_subtitle) else stringResource(
+                id = R.string.update_task_subtitle
+            ),
             style = MaterialTheme.typography.h4
         )
 
@@ -117,27 +112,42 @@ fun HeadingSection() {
 @Composable
 fun TaskFormSection(
     context: Context,
-    date: MutableState<String>,
-    time: MutableState<String>,
-    title: MutableState<String>,
-    description: MutableState<String>
+    viewModel: AddEditTaskViewModel
 ) {
+
+    val titleState = viewModel.taskTitle.value
+    val descriptionState = viewModel.taskDescription.value
+    val dateState = viewModel.taskDate.value
+    val timeState = viewModel.taskTime.value
+
 
     val year: Int
     val month: Int
     val day: Int
 
-    val hour: Int
+    var hour: Int
     val minute: Int
-
     val calendar = Calendar.getInstance()
-    year = calendar.get(Calendar.YEAR)
-    month = calendar.get(Calendar.MONTH)
-    day = calendar.get(Calendar.DATE)
-    hour = calendar.get(Calendar.HOUR_OF_DAY)
-    minute = calendar.get(Calendar.MINUTE)
+    if (dateState.text.isNotEmpty() && timeState.text.isNotEmpty()) {
 
-    calendar.time = Date()
+        year = parseDateString(dateState.text)[2]
+        month = parseDateString(dateState.text)[1]
+        day = parseDateString(dateState.text)[0]
+        hour = parseTimeString(timeState.text)[1].toInt()
+        minute = parseTimeString(timeState.text)[2].toInt()
+        if (parseTimeString(timeState.text)[0] == "PM") {
+            hour += 12
+        }
+
+    } else {
+
+        year = calendar.get(Calendar.YEAR)
+        month = calendar.get(Calendar.MONTH)
+        day = calendar.get(Calendar.DATE)
+        hour = calendar.get(Calendar.HOUR_OF_DAY)
+        minute = calendar.get(Calendar.MINUTE)
+        calendar.time = Date()
+    }
 
 
     val datePickerDialog = DatePickerDialog(
@@ -156,8 +166,8 @@ fun TaskFormSection(
                 mMonth + 1
             }
 
-            date.value = "$dayVal/${monthVal}/$mYear"
-        }, year, month, day
+            viewModel.onEvent(AddEditTaskEvent.SelectDate("$dayVal/${monthVal}/$mYear"))
+        }, year, month - 1, day
     )
 
     val timePickerDialog = TimePickerDialog(
@@ -179,10 +189,9 @@ fun TaskFormSection(
             } else {
                 "$mMinute"
             }
-            time.value = "$hourVal:$minuteVal $amPm"
+            viewModel.onEvent(AddEditTaskEvent.SelectTime("$hourVal:$minuteVal $amPm"))
         }, hour, minute, false
     )
-
 
 
     LazyColumn(
@@ -192,50 +201,67 @@ fun TaskFormSection(
     ) {
         item {
             Label(stringResource(id = R.string.task_date_label))
-            STMTextField(
-                value = date.value, onValueChange = {},
+            STMTextField2(
+                text = dateState.text,
+                hint = dateState.hint,
+                onValueChange = {
+                },
+                singleLine = true,
+                enabled = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(TaskListItemBackground)
                     .clickable {
                         datePickerDialog.show()
-                    },
-                placeholder = R.string.task_date_placeholder,
-                enabled = false,
+                    }
             )
             Spacer(modifier = Modifier.height(16.dp))
             Label(stringResource(id = R.string.task_time_label))
-            STMTextField(
-                value = time.value, onValueChange = {},
+            STMTextField2(
+                text = timeState.text,
+                hint = timeState.hint,
+                onValueChange = {
+                },
+                singleLine = true,
+                enabled = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(TaskListItemBackground)
                     .clickable {
                         timePickerDialog.show()
-                    },
-                placeholder = R.string.task_time_placeholder,
-                enabled = false,
+                    }
             )
             Spacer(modifier = Modifier.height(16.dp))
             Label(stringResource(id = R.string.task_title_label))
-            STMTextField(
-                value = title.value,
+            STMTextField2(
+                text = titleState.text,
+                hint = titleState.hint,
                 onValueChange = {
-                    title.value = it
+                    viewModel.onEvent(AddEditTaskEvent.EnteredTitle(it))
                 },
-                placeholder = R.string.task_title_placeholder,
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(TaskListItemBackground)
+                    .onFocusChanged {
+                        viewModel.onEvent(AddEditTaskEvent.ChangedTitleFocus(it))
+                    }
             )
             Spacer(modifier = Modifier.height(16.dp))
             Label(stringResource(id = R.string.task_description_label))
-            STMTextField(
-                value = description.value, onValueChange = {
-                    description.value = it
+            STMTextField2(
+                text = descriptionState.text,
+                hint = descriptionState.hint,
+                onValueChange = {
+                    viewModel.onEvent(AddEditTaskEvent.EnteredDescription(it))
                 },
-                placeholder = R.string.task_description_placeholder,
+                singleLine = false,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp)
                     .background(TaskListItemBackground)
+                    .onFocusChanged {
+                        viewModel.onEvent(AddEditTaskEvent.ChangedDescriptionFocus(it))
+                    }
             )
         }
     }
@@ -272,32 +298,31 @@ fun SaveTaskButtonSection(
 }
 
 @Composable
-fun STMTextField(
-    value: String,
+fun STMTextField2(
+    text: String,
+    hint: String,
+    modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .background(TaskListItemBackground),
-    placeholder: Int,
-    maxLines: Int = 1,
+    singleLine: Boolean = true,
     enabled: Boolean = true
 ) {
     TextField(
-        value = value,
+        value = text,
         onValueChange = onValueChange,
         modifier = modifier,
-        placeholder = {
-            Text(
-                text = stringResource(id = placeholder),
-                style = MaterialTheme.typography.body2.copy(color = Color.Black.copy(alpha = 0.5f))
-            )
-        },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text
         ),
-        maxLines = maxLines,
+        placeholder = {
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.body2.copy(color = Color.Black.copy(alpha = 0.5f))
+            )
+        },
+        singleLine = singleLine,
         enabled = enabled,
         textStyle = MaterialTheme.typography.body2
     )
+
 }
 

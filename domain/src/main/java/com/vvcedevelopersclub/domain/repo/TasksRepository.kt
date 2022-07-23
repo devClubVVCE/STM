@@ -8,7 +8,7 @@ import java.util.*
 interface TasksRepository {
     fun fetchAllTasks(): Flow<Resource<List<DMTask>>>
     fun fetchTaskDates(): Flow<Resource<List<String>>>
+    suspend fun fetchTaskById(taskId:Long): DMTask?
     suspend fun addTask(dmTask: DMTask)
-    suspend fun updateTask(dmTask: DMTask)
     suspend fun deleteTask(dmTask: DMTask)
 }
