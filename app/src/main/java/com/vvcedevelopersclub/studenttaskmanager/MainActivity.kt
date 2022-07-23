@@ -3,41 +3,40 @@ package com.vvcedevelopersclub.studenttaskmanager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.vvcedevelopersclub.studenttaskmanager.ui.screens.AddEditTasksScreen
+import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
+import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Handle the splash screen transition.
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
         setContent {
+
+            val navController = rememberNavController()
+
             StudentTaskManagerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.TasksScreen.route
                 ) {
-                    Greeting("Android")
+                    composable(Screen.TasksScreen.route) {
+                        TasksScreen(navController)
+                    }
+                    composable(Screen.AddEditTasksScreen.route) {
+                        AddEditTasksScreen(navController)
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    StudentTaskManagerTheme {
-        Greeting("Android")
     }
 }
