@@ -1,5 +1,6 @@
 package com.vvcedevelopersclub.studenttaskmanager.ui.theme
 
+import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -54,6 +55,13 @@ val Typography = Typography(
         fontFamily = ibmPlexSans,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
+        color = Color.Black,
+        textAlign = TextAlign.Start
+    ),
+    h6 = TextStyle(
+        fontFamily = ibmPlexSans,
+        fontWeight = FontWeight.W200,
+        fontSize = 22.sp,
         color = Color.Black,
         textAlign = TextAlign.Start
     )

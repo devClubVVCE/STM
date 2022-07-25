@@ -7,7 +7,6 @@ import com.vvcedevelopersclub.domain.repo.TasksRepository
 class UseCaseAddTask(private val tasksRepository: TasksRepository) {
     suspend fun addTask(dmTask: DMTask) {
         when {
-
             dmTask.taskDate.isEmpty() -> {
                 throw InvalidTaskException("Please select the task date")
             }
