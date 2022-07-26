@@ -67,4 +67,46 @@ class TaskRepositoryImpl @Inject constructor(
         taskManagerDatabase.taskDao().deleteTask(dmTask.toTask())
     }
 
+    override fun fetchCompletedTasks(): Flow<Resource<List<DMTask>>> {
+        return networkBoundResource(
+            query = {
+                taskManagerDatabase.taskDao().fetchCompletedTasks().mapLatest {
+                    it.map { task ->
+                        task.toDMTask()
+                    }
+                }
+            },
+            fetch = {
+                // Retrofit query
+            },
+            saveFetchResult = { _ ->
+                // Save result to DB
+            },
+            shouldFetch = {
+                true
+            }
+        )
+    }
+
+    override fun fetchIncompleteTasks(): Flow<Resource<List<DMTask>>> {
+        return networkBoundResource(
+            query = {
+                taskManagerDatabase.taskDao().fetchIncompleteTasks().mapLatest {
+                    it.map { task ->
+                        task.toDMTask()
+                    }
+                }
+            },
+            fetch = {
+                // Retrofit query
+            },
+            saveFetchResult = { _ ->
+                // Save result to DB
+            },
+            shouldFetch = {
+                true
+            }
+        )
+    }
+
 }

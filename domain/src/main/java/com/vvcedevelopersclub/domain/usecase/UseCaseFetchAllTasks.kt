@@ -14,4 +14,12 @@ class UseCaseFetchAllTasks(private val tasksRepository: TasksRepository) {
     fun fetchTaskDates(): Flow<Resource<List<String>>> {
         return tasksRepository.fetchTaskDates()
     }
+
+    fun fetchCompleteTasks(): Flow<Resource<List<DMTask>>> {
+        return tasksRepository.fetchCompletedTasks()
+    }
+
+    fun fetchIncompleteTasks(): Flow<Resource<List<DMTask>>> {
+        return tasksRepository.fetchIncompleteTasks()
+    }
 }
