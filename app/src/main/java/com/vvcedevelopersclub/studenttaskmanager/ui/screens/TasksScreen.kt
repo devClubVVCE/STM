@@ -36,7 +36,7 @@ fun TasksScreen(
                     navController.navigate(Screen.AddEditTasksScreen.route)
                 },
                 onInsightsTaskButtonClicked = {
-                    navController.navigate(Screen.AddEditTasksScreen.route)
+                    navController.navigate(Screen.InsightsScreen.route)
                 },
                 onTaskItemClicked = { taskId ->
                     navController.navigate(Screen.AddEditTasksScreen.route+"?taskId=$taskId")

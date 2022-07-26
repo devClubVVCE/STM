@@ -22,4 +22,10 @@ interface TaskDao {
 
     @Delete
     suspend fun deleteTask(task: Task)
+
+    @Query("SELECT * FROM Task WHERE isTaskCompleted = 1 ORDER BY taskDate DESC")
+    fun fetchCompletedTasks(): Flow<List<Task>>
+
+    @Query("SELECT * FROM Task WHERE isTaskCompleted = 0 ORDER BY taskDate DESC")
+    fun fetchIncompleteTasks(): Flow<List<Task>>
 }

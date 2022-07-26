@@ -30,6 +30,9 @@
 
     <string name="delete">DELETE</string>
     <string name="done">DONE</string>
+    <string name="due">DUE</string>
+
+    <string name="insights_subtitle">View breakdown of your tasks</string>
 
 
     <plurals name="tasks_subheading">

@@ -1,5 +1,7 @@
 package com.vvcedevelopersclub.studenttaskmanager.ui.utils
 
+import com.vvcedevelopersclub.data.local.utils.Utils
+
 object ExtensionMethods {
 
     fun parseDateString(dateString: String): List<Int> {
@@ -13,5 +15,20 @@ object ExtensionMethods {
         val amPm = split1[1]
         val split2 = split1[0].split(":")
         return listOf(amPm, split2[0], split2[1])
+    }
+
+    fun checkDate(date: String) = when (date) {
+        Utils.getCurrentDate() -> {
+            "Today"
+        }
+        Utils.getPreviousDay() -> {
+            "Yesterday"
+        }
+        Utils.getNextDay() -> {
+            "Tomorrow"
+        }
+        else -> {
+            date
+        }
     }
 }

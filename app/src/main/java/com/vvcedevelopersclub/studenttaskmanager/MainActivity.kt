@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.AddEditTasksScreen
+import com.vvcedevelopersclub.studenttaskmanager.ui.screens.InsightsScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
 import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
@@ -45,6 +46,9 @@ class MainActivity : ComponentActivity() {
                             navController,
                             taskId
                         )
+                    }
+                    composable(Screen.InsightsScreen.route) {
+                        InsightsScreen(navController)
                     }
                 }
             }

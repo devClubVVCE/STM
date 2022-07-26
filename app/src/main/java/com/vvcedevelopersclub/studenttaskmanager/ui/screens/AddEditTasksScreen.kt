@@ -167,7 +167,11 @@ fun TaskFormSection(
             }
 
             viewModel.onEvent(AddEditTaskEvent.SelectDate("$dayVal/${monthVal}/$mYear"))
-        }, year, month - 1, day
+        }, year, if (dateState.text.isNotEmpty()) {
+            month - 1
+        } else {
+            month
+        }, day
     )
 
     val timePickerDialog = TimePickerDialog(
