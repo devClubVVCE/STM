@@ -41,7 +41,13 @@ fun TasksScreen(
                 onTaskItemClicked = { taskId ->
                     navController.navigate(Screen.AddEditTasksScreen.route+"?taskId=$taskId")
                 },
-                taskDates = taskDatesState.taskDates.data!!
+                taskDates = taskDatesState.taskDates.data!!,
+                onDeleteAction = {
+                    viewModel.deleteTask(it)
+                },
+                onUpdateAction = {
+                    viewModel.updateTask(it)
+                }
             )
         }
     }

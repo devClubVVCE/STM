@@ -6,6 +6,7 @@ import com.vvcedevelopersclub.data.local.TaskManagerDatabase
 import com.vvcedevelopersclub.data.local.repo.TaskRepositoryImpl
 import com.vvcedevelopersclub.domain.repo.TasksRepository
 import com.vvcedevelopersclub.domain.usecase.UseCaseAddTask
+import com.vvcedevelopersclub.domain.usecase.UseCaseDeleteTask
 import com.vvcedevelopersclub.domain.usecase.UseCaseFetchAllTasks
 import com.vvcedevelopersclub.domain.usecase.UseCaseGetTaskById
 import dagger.Module
@@ -55,4 +56,9 @@ class TaskManagerModule {
     @Singleton
     fun provideUseCaseGetTaskById(tasksRepository: TasksRepository) =
         UseCaseGetTaskById(tasksRepository)
+
+    @Provides
+    @Singleton
+    fun provideUseCaseDeleteTask(tasksRepository: TasksRepository) =
+        UseCaseDeleteTask(tasksRepository)
 }

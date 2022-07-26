@@ -1,23 +1,26 @@
 package com.vvcedevelopersclub.studenttaskmanager.ui.viewmodels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vvcedevelopersclub.domain.models.DMTask
+import com.vvcedevelopersclub.domain.usecase.UseCaseAddTask
+import com.vvcedevelopersclub.domain.usecase.UseCaseDeleteTask
 import com.vvcedevelopersclub.domain.usecase.UseCaseFetchAllTasks
 import com.vvcedevelopersclub.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TasksViewModel @Inject constructor(
-    private val useCaseFetchAllTasks: UseCaseFetchAllTasks
+    private val useCaseFetchAllTasks: UseCaseFetchAllTasks,
+    private val useCaseAddTask: UseCaseAddTask,
+    private val useCaseDeleteTask: UseCaseDeleteTask
 ) : ViewModel() {
 
     private val _tasksState = mutableStateOf(TasksState())
@@ -48,6 +51,18 @@ class TasksViewModel @Inject constructor(
             _taskDates.value = taskDates.value.copy(taskDates = task)
         }.launchIn(viewModelScope)
 
+    }
+
+    fun deleteTask(dmTask: DMTask) {
+        viewModelScope.launch {
+            useCaseDeleteTask.deleteTask(dmTask)
+        }
+    }
+
+    fun updateTask(dmTask: DMTask) {
+        viewModelScope.launch {
+            useCaseAddTask.addTask(dmTask.copy(isTaskCompleted = !dmTask.isTaskCompleted))
+        }
     }
 
 }

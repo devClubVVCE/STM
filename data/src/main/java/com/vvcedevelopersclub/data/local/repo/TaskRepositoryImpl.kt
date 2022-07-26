@@ -9,7 +9,6 @@ import com.vvcedevelopersclub.domain.repo.TasksRepository
 import com.vvcedevelopersclub.domain.utils.Resource
 import com.vvcedevelopersclub.domain.utils.networkBoundResource
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -61,11 +60,11 @@ class TaskRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addTask(dmTask: DMTask) {
-        val task = dmTask.toTask()
-        taskManagerDatabase.taskDao().addTask(task)
+        taskManagerDatabase.taskDao().addTask(dmTask.toTask())
     }
 
     override suspend fun deleteTask(dmTask: DMTask) {
+        taskManagerDatabase.taskDao().deleteTask(dmTask.toTask())
     }
 
 }

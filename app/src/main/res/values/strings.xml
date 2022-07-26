@@ -28,6 +28,9 @@
     <string name="task_description_placeholder">Complete assignment</string>
     <string name="back_button">Back Button</string>
 
+    <string name="delete">DELETE</string>
+    <string name="done">DONE</string>
+
 
     <plurals name="tasks_subheading">
         <item quantity="one">You have %d task scheduled</item>
