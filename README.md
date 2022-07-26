@@ -1,6 +1,6 @@
 # Taskly
 
-An open source project that helps student manage tasks
+An open source project that helps student manage tasks and become productive
 
 The purpose of this app is to
 
