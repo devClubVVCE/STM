@@ -8,12 +8,12 @@ The purpose of this app is to
 - Implementation of clean architecture principles using Android architecture components
 - Implementation of Dagger hilt
 
-#### To-Do
+#### To-Do 🚧
 
 - Write UI and Integration tests
 - Add Baseline profiles & Macrobenchmark tests
 
-#### Stack
+#### Stack 💚
 
 - [Kotlin](https://kotlinlang.org/docs/getting-started.html)
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
