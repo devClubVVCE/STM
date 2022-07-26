@@ -1,6 +1,6 @@
-# Taskly
+<img src="https://user-images.githubusercontent.com/37804253/180980929-e3e80147-3a28-4b37-8a75-d90391db45a6.png" />
 
-An open source project that helps student manage tasks and become productive
+## An open source project that helps student manage tasks
 
 The purpose of this app is to
 
@@ -8,12 +8,12 @@ The purpose of this app is to
 - Implementation of clean architecture principles using Android architecture components
 - Implementation of Dagger hilt
 
-#### To-Do
+## To-Do 🚧
 
 - Write UI and Integration tests
 - Add Baseline profiles & Macrobenchmark tests
 
-#### Stack
+## Stack 💚
 
 - [Kotlin](https://kotlinlang.org/docs/getting-started.html)
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
