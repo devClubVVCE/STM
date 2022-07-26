@@ -3,55 +3,41 @@ package com.vvcedevelopersclub.studenttaskmanager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.vvcedevelopersclub.studenttaskmanager.ui.screens.AddEditTasksScreen
-import com.vvcedevelopersclub.studenttaskmanager.ui.screens.InsightsScreen
-import com.vvcedevelopersclub.studenttaskmanager.ui.screens.TasksScreen
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.StudentTaskManagerTheme
-import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_StudentTaskManager)
         super.onCreate(savedInstanceState)
         setContent {
-
-            val navController = rememberNavController()
-
             StudentTaskManagerTheme {
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.TasksScreen.route
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
                 ) {
-                    composable(Screen.TasksScreen.route) {
-                        TasksScreen(navController)
-                    }
-                    composable(
-                        Screen.AddEditTasksScreen.route + "?taskId={taskId}",
-                        arguments = listOf(
-                            navArgument(name = "taskId") {
-                                type = NavType.LongType
-                                defaultValue = -1L
-                            }
-                        )
-                    ) {
-                        val taskId = it.arguments?.getLong("taskId") ?: -1
-                        AddEditTasksScreen(
-                            navController,
-                            taskId
-                        )
-                    }
-                    composable(Screen.InsightsScreen.route) {
-                        InsightsScreen(navController)
-                    }
+                    Greeting("Android")
                 }
             }
         }
+    }
+}
+
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    StudentTaskManagerTheme {
+        Greeting("Android")
     }
 }
