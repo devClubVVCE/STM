@@ -30,6 +30,7 @@ import com.vvcedevelopersclub.domain.models.DMTask
 import com.vvcedevelopersclub.domain.utils.Status
 import com.vvcedevelopersclub.studenttaskmanager.R
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.components.CircularProgressIndicatorView
+import com.vvcedevelopersclub.studenttaskmanager.ui.screens.components.PieChartSection
 import com.vvcedevelopersclub.studenttaskmanager.ui.screens.components.TaskListItem
 import com.vvcedevelopersclub.studenttaskmanager.ui.theme.*
 import com.vvcedevelopersclub.studenttaskmanager.ui.utils.Screen
@@ -96,31 +97,6 @@ fun HeadingSection() {
         )
         Spacer(modifier = Modifier.height(30.dp))
     }
-}
-
-@Composable
-fun PieChartSection(points: List<Float>, colors: List<Color>) {
-
-    val total = points.sum()
-    val proportions = points.map {
-        it * 100 / total
-    }
-    val sweepAnglePercentage = proportions.map {
-        360 * it / 100
-    }
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .height(300.dp)) {
-        Canvas(modifier = Modifier.fillMaxWidth()) {
-
-            var startAngle = 270f
-            sweepAnglePercentage.forEachIndexed { index, sweepAngle ->
-                drawArc(color = colors[index], startAngle = startAngle, sweepAngle = sweepAngle)
-                startAngle += sweepAngle
-            }
-        }
-    }
-
 }
 
 fun DrawScope.drawArc(
