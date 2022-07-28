@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.vvcedevelopersclub.studenttaskmanager"
+        applicationId "com.devclubvvce.studenttaskmanager"
         minSdk 24
         targetSdk 32
         versionCode 1

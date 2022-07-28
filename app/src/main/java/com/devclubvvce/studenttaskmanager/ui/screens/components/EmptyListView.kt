@@ -18,6 +18,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.devclubvvce.studenttaskmanager.R
 import com.devclubvvce.studenttaskmanager.ui.theme.Background
 import com.devclubvvce.studenttaskmanager.ui.theme.ButtonBackground
 import com.devclubvvce.studenttaskmanager.ui.theme.ibmPlexSans
