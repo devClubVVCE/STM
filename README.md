@@ -8,9 +8,9 @@
 
 The purpose of this app is to
 
-- Implementation of Jetpack compose
-- Implementation of clean architecture principles using Android architecture components
-- Implementation of Dagger hilt
+- Implement Jetpack compose
+- Implement clean architecture principles using Android architecture components
+- Implement Dagger hilt
 
 ## To-Do 🚧
 
